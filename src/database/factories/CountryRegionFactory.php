@@ -6,6 +6,7 @@ namespace Lwwcas\LaravelCountries\Database\Factories;
 
 use App\Modules\ExactOnline\Database\Models\ItemGroup;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Str;
 use Lwwcas\LaravelCountries\Models\CountryRegion;
 
 class CountryRegionFactory extends Factory
@@ -19,11 +20,19 @@ class CountryRegionFactory extends Factory
 
     public function definition(): array
     {
-        return [
-            'name' => [
-                'en' => 'Europe',
-            ],
+        $attributes = [
             'uuid' => fake()->uuid(),
         ];
+
+        foreach (config('translatable.locales') as $locale) {
+            $name = fake($locale)->word();
+
+            $attributes = array_merge($attributes, [
+                'name:'.$locale => $name,
+                'slug:'.$locale => Str::slug($name),
+            ]);
+        }
+
+        return $attributes;
     }
 }

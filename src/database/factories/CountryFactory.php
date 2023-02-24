@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Lwwcas\LaravelCountries\Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Str;
 use Lwwcas\LaravelCountries\Models\Country;
 use Lwwcas\LaravelCountries\Models\CountryRegion;
 
@@ -19,10 +20,9 @@ class CountryFactory extends Factory
 
     public function definition(): array
     {
-        return [
-            'name' => [
-                'en' => fake()->country(),
-            ],
+        $country = fake()->country();
+
+        $attributes = [
             'uuid' => fake()->uuid(),
             'lc_region_id' => CountryRegion::factory(),
             'official_name' => fake()->country(),
@@ -40,5 +40,16 @@ class CountryFactory extends Factory
             'coordinates_limit' => '"{\"latitude\":{\"max\":\"61.5\",\"min\":\"49.866667\"},\"longitude\":{\"max\":\"2.866667\",\"min\":\"-13.65\"}}"',
             'visible' => fake()->boolean(),
         ];
+
+        foreach (config('translatable.locales') as $locale) {
+            $name = fake($locale)->word();
+
+            $attributes = array_merge($attributes, [
+                'name:'.$locale => $name,
+                'slug:'.$locale => Str::slug($name),
+            ]);
+        }
+
+        return $attributes;
     }
 }
