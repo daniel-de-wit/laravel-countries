@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 use Lwwcas\LaravelCountries\Casts\Json;
+use Lwwcas\LaravelCountries\Database\Factories\CountryFactory;
 
 class Country extends Model
 {
@@ -89,6 +90,11 @@ class Country extends Model
         self::creating(function ($model) {
             $model->uuid = (string) Str::uuid();
         });
+    }
+
+    protected static function newFactory(): CountryFactory
+    {
+        return CountryFactory::new();
     }
 
     /**

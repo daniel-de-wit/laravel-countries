@@ -6,6 +6,8 @@ use Astrotomic\Translatable\Translatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
+use Lwwcas\LaravelCountries\Database\Factories\CountryFactory;
+use Lwwcas\LaravelCountries\Database\Factories\CountryRegionFactory;
 
 class CountryRegion extends Model
 {
@@ -44,6 +46,11 @@ class CountryRegion extends Model
         self::creating(function ($model) {
             $model->uuid = (string) Str::uuid();
         });
+    }
+
+    protected static function newFactory(): CountryRegionFactory
+    {
+        return CountryRegionFactory::new();
     }
 
     /**
