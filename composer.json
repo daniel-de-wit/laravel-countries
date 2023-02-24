@@ -36,6 +36,7 @@
             "Lwwcas\\LaravelCountries\\Models\\": "src/models",
             "Lwwcas\\LaravelCountries\\Casts\\": "src/casts",
             "Lwwcas\\LaravelCountries\\Database\\": "src/database",
+            "Lwwcas\\LaravelCountries\\Database\\Factories\\": "src/database/factories",
             "Lwwcas\\LaravelCountries\\Database\\Seeders\\": "src/database/seeders",
             "Lwwcas\\LaravelCountries\\Database\\Seeders\\Countries\\": "src/database/seeders/countries"
         }
